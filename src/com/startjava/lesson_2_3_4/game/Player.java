@@ -1,9 +1,13 @@
 package com.startjava.lesson_2_3_4.game;
 
 public class Player {
-    public int[] arrayPlayer = new int[10];
+    private int[] answers = new int[10];
     private String name;
-    private int approach;
+    private int attempt;
+
+    public int[] getAnswers() {
+        return answers;
+    }
 
     public Player(String name) {
         this.name = name;
@@ -13,15 +17,11 @@ public class Player {
         return name;
     }
 
-    public int getApproach() {
-        return approach;
+    public int getAttempt() {
+        return attempt;
     }
 
-    public void setApproach(int approach) {
-        this.approach = approach;
-    }
-
-    public int getApproachForPrint() {
-        return approach + 1;
+    public void setAttempt(int attempt) {
+        this.attempt = attempt;
     }
 }

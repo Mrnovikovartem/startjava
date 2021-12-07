@@ -18,51 +18,50 @@ public class GuessNumber {
     }
 
     public void start() {
-        Arrays.fill(player1.arrayPlayer, 0);
-        Arrays.fill(player2.arrayPlayer, 0);
-        Scanner scan = new Scanner(System.in);
-        int tryCount = player1.arrayPlayer.length - 1;
+        Arrays.fill(player1.getAnswers(), 0);
+        Arrays.fill(player2.getAnswers(), 0);
+        int tryCount = player1.getAnswers().length - 1;
         for (int i = 0; i <= tryCount; i++) {
-            System.out.println("Игрок 1 введите число");
-            player1.arrayPlayer[i] = scan.nextInt();
-            player1.setApproach(i);
-            if (!getGameResult(compareNumbers, player1)) {
-                printAnswers();
+            if (isWinner(player1, i, tryCount) || isWinner(player2, i, tryCount)) {
+                printAnswers(player1);
+                printAnswers(player2);
                 break;
-            }
-            if (i == tryCount) {
-                System.out.println("У игрока " + player1.getName() + " кончились попытки");
-            }
-            System.out.println("Игрок 2 введите число");
-            player2.arrayPlayer[i] = scan.nextInt();
-            player2.setApproach(i);
-            if (!getGameResult(compareNumbers, player2)) {
-                printAnswers();
-                break;
-            }
-            if (i == tryCount) {
-                System.out.println("У игрока " + player2.getName() + " кончились попытки");
             }
         }
     }
 
-    public boolean getGameResult(int compareNumbers, Player player) {
-        if (compareNumbers != player.arrayPlayer[player.getApproach()]) {
-            if (compareNumbers < player.arrayPlayer[player.getApproach()]) {
+    private boolean compareNumbers(int compareNumbers, Player player) {
+        if (compareNumbers != player.getAnswers()[player.getAttempt()]) {
+            if (compareNumbers < player.getAnswers()[player.getAttempt()]) {
                 System.out.println("Введенное число больше ожидаемого");
-            } else if (compareNumbers > player.arrayPlayer[player.getApproach()]) {
+            } else if (compareNumbers > player.getAnswers()[player.getAttempt()]) {
                 System.out.println("Введенное число меньше ожидаемого");
             }
             return true;
         }
-        System.out.println("Игрок " + player.getName() + " угадал число " + compareNumbers + " с " + (player.getApproachForPrint()) + "ой");
+        System.out.println("Игрок " + player.getName() + " угадал число " + compareNumbers + " с " + (player.getAttempt() + 1) + "ой");
         return false;
     }
 
-    public void printAnswers() {
-        int[] array1 = Arrays.copyOfRange(player1.arrayPlayer, 0, player1.getApproachForPrint());
-        int[] array2 = Arrays.copyOfRange(player2.arrayPlayer, 0, player2.getApproachForPrint());
-        System.out.println(Arrays.toString(array1));
-        System.out.println(Arrays.toString(array2));
+    private void printAnswers(Player player) {
+        int[] resultArray = Arrays.copyOfRange(player1.getAnswers(), 0, player.getAttempt() + 1);
+        for (int x : resultArray) {
+            System.out.print(x + " ");
+        }
+        System.out.println();
+    }
+
+    private boolean isWinner(Player player, int i, int tryCount) {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Игрок " + player.getName() + " введите число");
+        player.getAnswers()[i] = scan.nextInt();
+        player.setAttempt(i);
+        if (!compareNumbers(compareNumbers, player)) {
+            return true;
+        }
+        if (i == tryCount) {
+            System.out.println("У игрока " + player.getName() + " кончились попытки");
+        }
+        return false;
     }
 }
