@@ -20,7 +20,7 @@ public class GuessNumber {
     public void start() {
         player1.clearAnswers();
         player2.clearAnswers();
-        int tryCount = player1.getAnswers().length - 1;
+        int tryCount = 9;
         for (int i = 0; i <= tryCount; i++) {
             if (makeMove(player1, i, tryCount) || makeMove(player2, i, tryCount)) {
                 printAnswers(player1);
@@ -33,8 +33,8 @@ public class GuessNumber {
     private boolean makeMove(Player player, int i, int tryCount) {
         Scanner scan = new Scanner(System.in);
         System.out.println("Игрок " + player.getName() + " введите число");
-        player.addAnswers(scan.nextInt(),i);
         player.setAttempt(i);
+        player.addAnswer(scan.nextInt(),player.getAttempt());
         if (!compareNumbers(player)) {
             return true;
         }
