@@ -10,22 +10,16 @@ public class GuessNumberTest {
         System.out.println("Введите имя игрока 2 ");
         Player player2 = new Player(scan.next());
         System.out.println("У каждого игрока по 10 попыток");
+        String isNext = "yes";
+
         do {
-            GuessNumber game = new GuessNumber(player1, player2);
-            game.start();
-        } while (agreement());
+            if ("yes".equals(isNext)) {
+                GuessNumber game = new GuessNumber(player1, player2);
+                game.start();
+            }
+            System.out.println("Хотите продолжить игру [yes/no]: ");
+            isNext = scan.next();
+        } while (!isNext.equalsIgnoreCase("no"));
     }
 
-    public static boolean agreement() {
-        String wish;
-        System.out.println("Хотите продолжить игру [yes/no]: ");
-        do {
-            Scanner scan = new Scanner(System.in);
-            wish = scan.next();
-            if ((!wish.equalsIgnoreCase("yes") && !wish.equalsIgnoreCase("no")))
-                System.out.println("Повторите ответ ");
-        }
-            while (!wish.equalsIgnoreCase("yes") && !wish.equalsIgnoreCase("no"));
-                return wish.equals("yes");
-        }
-    }
+}

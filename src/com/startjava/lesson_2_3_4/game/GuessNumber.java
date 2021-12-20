@@ -34,7 +34,7 @@ public class GuessNumber {
         Scanner scan = new Scanner(System.in);
         System.out.println("Игрок " + player.getName() + " введите число");
         player.setAttempt(i);
-        player.addAnswer(scan.nextInt(),player.getAttempt());
+        player.addAnswer(scan.nextInt());
         if (!compareNumbers(player)) {
             return true;
         }
@@ -47,11 +47,8 @@ public class GuessNumber {
     private boolean compareNumbers(Player player) {
         int answer = player.getAnswers()[player.getAttempt()];
         if (secretNumber != answer) {
-            if (secretNumber < answer) {
-                System.out.println("Введенное число больше ожидаемого");
-            } else {
-                System.out.println("Введенное число меньше ожидаемого");
-            }
+            String securityAnswer = (secretNumber < answer) ? "Введенное число больше ожидаемого" : "Введенное число меньше ожидаемого";
+            System.out.println(securityAnswer);
             return true;
         }
         System.out.println("Игрок " + player.getName() + " угадал число " + secretNumber + " с " + (player.getAttempt() + 1) + "ой");
@@ -59,8 +56,8 @@ public class GuessNumber {
     }
 
     private void printAnswers(Player player) {
-        int[] resultArray = Arrays.copyOfRange(player.getAnswers(), 0, player.getAttempt() + 1);
-        for (int number : resultArray) {
+        int[] numbers = player.getAnswers();
+        for (int number : numbers) {
             System.out.print(number + " ");
         }
         System.out.println();

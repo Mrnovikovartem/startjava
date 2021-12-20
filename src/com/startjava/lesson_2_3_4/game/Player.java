@@ -12,20 +12,26 @@ public class Player {
     }
 
     public int[] getAnswers() {
-        return Arrays.copyOfRange(answers, 0,attempt+1);
+        return Arrays.copyOfRange(answers, 0, attempt + 1);
     }
 
     public String getName() {
         return name;
     }
 
-    public int getAttempt() { return attempt; }
-
-    public void setAttempt(int attempt) { this.attempt = attempt; }
-
-    public void clearAnswers() {
-        Arrays.fill(answers,0,attempt, 0);
+    public int getAttempt() {
+        return attempt;
     }
 
-    public void addAnswer(int answer, int attempt) { this.answers[attempt] = answer; }
+    public void addAnswer(int answer) {
+        answers[attempt] = answer;
+    }
+
+    public void setAttempt(int attempt) {
+        this.attempt = attempt;
+    }
+
+    public void clearAnswers() {
+        Arrays.fill(answers, 0, attempt, 0);
+    }
 }
