@@ -5,19 +5,19 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class GuessNumber {
-    private final int secretNumber;
+    private int secretNumber;
     private final Player player1;
     private final Player player2;
 
     public GuessNumber(Player player1, Player player2) {
-        int min = 0;
-        int max = 100;
-        secretNumber = min + (int) (Math.random() * max);
         this.player1 = player1;
         this.player2 = player2;
     }
 
     public void start() {
+        int min = 0;
+        int max = 100;
+        secretNumber = min + (int) (Math.random() * max);
         player1.clearAnswers();
         player2.clearAnswers();
         int tryCount = 9;
@@ -47,8 +47,8 @@ public class GuessNumber {
     private boolean compareNumbers(Player player) {
         int answer = player.getAnswers()[player.getAttempt()];
         if (secretNumber != answer) {
-            String securityAnswer = (secretNumber < answer) ? "Введенное число больше ожидаемого" : "Введенное число меньше ожидаемого";
-            System.out.println(securityAnswer);
+            String securityAnswer = (secretNumber < answer) ? " больше " : " меньше ";
+            System.out.println("Введенное число" + securityAnswer + "ожидаемого");
             return true;
         }
         System.out.println("Игрок " + player.getName() + " угадал число " + secretNumber + " с " + (player.getAttempt() + 1) + "ой");

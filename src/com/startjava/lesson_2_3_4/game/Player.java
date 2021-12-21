@@ -15,16 +15,16 @@ public class Player {
         return Arrays.copyOfRange(answers, 0, attempt + 1);
     }
 
+    public void addAnswer(int answer) {
+        answers[attempt] = answer;
+    }
+
     public String getName() {
         return name;
     }
 
     public int getAttempt() {
         return attempt;
-    }
-
-    public void addAnswer(int answer) {
-        answers[attempt] = answer;
     }
 
     public void setAttempt(int attempt) {
